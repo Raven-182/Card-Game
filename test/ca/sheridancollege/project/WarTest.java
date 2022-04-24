@@ -16,7 +16,9 @@ import org.junit.Test;
  */
 public class WarTest {
     
-// 
+/**
+ * This tests if the players are added correctly
+ */
    @Test 
    public void goodTestGetPlayer() {
         War instance = new War("war");
@@ -27,6 +29,9 @@ public class WarTest {
         assertTrue("p1".equals(instance.getPlayer(players, 1)));
        
    }
+   /**
+ * This tests if the players are added correctly
+ */
    
    @Test 
    public void boundaryTestGetPlayer() {
@@ -39,6 +44,9 @@ public class WarTest {
         assertTrue("p2".equals(instance.getPlayer(players, 2)));
        
    }
+   /**
+ * This tests if the players are added correctly
+ */
    
    @Test 
    public void badTestGetPlayer() {
@@ -51,21 +59,27 @@ public class WarTest {
         assertTrue("Enter valid Player number, you entered:10".equals(instance.getPlayer(players, 10)));
        
    }
-
+/**
+ * Tests if the winner is declared correctly
+ */
    @Test
    public void goodTestDeclareWinner(){
         War instance =new War("War");     
       assertTrue("Player 2 wins the game!".equals(instance.declareWinner(23, 27)));
            
    }
-   
+   /**
+ * Tests if the winner is declared correctly
+ */
     @Test
    public void badTestDeclareWinner(){
         War instance =new War("War");     
       assertTrue("The game resulted in a tie!".equals(instance.declareWinner(23, 23)));
            
    }
-   
+   /**
+ * Tests if the winner is declared correctly
+ */
    @Test
    public void boundaryTestDeclareWinner(){
         War instance =new War("War");     
@@ -75,6 +89,7 @@ public class WarTest {
    
    /**
     * Test of resolveTie method, of class War.
+    * has no boundary cases
     */
    @Test
    public void testResolveTie(){
@@ -115,7 +130,7 @@ public class WarTest {
         assertTrue(expected.equals(result));
     }
     /**
-     * 
+     * Test of addToPlayer1Pile method, of class War
      */
       public void badTestAddToPlayer1Pile() {
            System.out.println("addToPlayer1Pile");

@@ -78,7 +78,7 @@ public class War extends Game {
 
       
             userEntry = scan.nextInt();
-
+//checks if the deck is empty, then calls declarewinner method
             if (players[0].getPlayerDeck().isEmpty()) {
                   System.out.println(declareWinner(players[0].getPlayerDeck().size(),players[1].getPlayerDeck().size()));
                 break;
@@ -86,6 +86,7 @@ public class War extends Game {
                   System.out.println(declareWinner(players[0].getPlayerDeck().size(),players[1].getPlayerDeck().size()));
                 break;
             }
+            
             PlayingCards player1card = players[0].getPlayerDeck().get(0);
             PlayingCards player2card = players[1].getPlayerDeck().get(0);
 
@@ -110,9 +111,11 @@ public class War extends Game {
             System.out.println("Cards in player 1's pile " + players[0].getPlayerDeck().size());
             System.out.println("Cards in player 2's pile " + players[1].getPlayerDeck().size());
         } while (userEntry != 0);
+        
+        //declares winner after the game ends
         System.out.println(declareWinner(players[0].getPlayerDeck().size(),players[1].getPlayerDeck().size()));
     }
-
+//removes card from player 2's pile and adds it to player 1's pile at the bottom
     public void addToPlayer1Pile(WarGamePlayer[] players, PlayingCards player1card, PlayingCards player2card) {
         players[0].getPlayerDeck().remove(player1card);
         players[1].getPlayerDeck().remove(player2card);
@@ -120,7 +123,7 @@ public class War extends Game {
         players[0].getPlayerDeck().add(players[0].getPlayerDeck().size() - 1, player1card);
 
     }
-
+//removes card from player 2's pile and adds it to player 1's pile at the bottom
     public void addToPlayer2Pile(WarGamePlayer[] players, PlayingCards player1card, PlayingCards player2card) {
         players[1].getPlayerDeck().remove(player2card);
         players[0].getPlayerDeck().remove(player1card);

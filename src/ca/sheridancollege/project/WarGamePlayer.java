@@ -2,7 +2,10 @@ package ca.sheridancollege.project;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+/**
+ * This class describes a war game player
+ *
+ */
 public class WarGamePlayer {
     static String name;
 

@@ -1,5 +1,8 @@
 package ca.sheridancollege.project;
-
+/**
+ * 
+ * This class describes the typical 52-card playing cards
+ */
 public class PlayingCards extends Card {
     int rank;
     Suits suit;
@@ -25,7 +28,7 @@ public class PlayingCards extends Card {
     public void setSuit(Suits suit) {
         this.suit = suit;
     }
-
+//Returns a string representation of a card
     @Override
     public String toString() {
         String faceCard = "";
