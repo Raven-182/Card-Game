@@ -4,12 +4,11 @@
  */
 package ca.sheridancollege.project;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
 
 /**
  *
@@ -17,104 +16,129 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class WarTest {
     
-    public WarTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
+// 
+   @Test 
+   public void goodTestGetPlayer() {
+        War instance = new War("war");
+        WarGamePlayer[] players = new WarGamePlayer[2];
+        
+        players[0] = new WarGamePlayer("p1");    
+        
+        assertTrue("p1".equals(instance.getPlayer(players, 1)));
+       
+   }
+   
+   @Test 
+   public void boundaryTestGetPlayer() {
+        War instance = new War("war");
+        WarGamePlayer[] players = new WarGamePlayer[2];
+        
+        players[0] = new WarGamePlayer("p1"); 
+        players[1] = new WarGamePlayer("p2"); 
+        
+        assertTrue("p2".equals(instance.getPlayer(players, 2)));
+       
+   }
+   
+   @Test 
+   public void badTestGetPlayer() {
+        War instance = new War("war");
+        WarGamePlayer[] players = new WarGamePlayer[2];
+        
+        players[0] = new WarGamePlayer("p1"); 
+        players[1] = new WarGamePlayer("p2"); 
+        
+        assertTrue("Enter valid Player number, you entered:10".equals(instance.getPlayer(players, 10)));
+       
+   }
 
-    /**
-     * Test of getPlayer method, of class War.
-     */
+   @Test
+   public void goodTestDeclareWinner(){
+        War instance =new War("War");     
+      assertTrue("Player 2 wins the game!".equals(instance.declareWinner(23, 27)));
+           
+   }
+   
     @Test
-    public void testGetPlayer() {
-        System.out.println("getPlayer");
-        int playerNumber = 0;
-        War instance = null;
-        String expResult = "";
-        String result = instance.getPlayer(playerNumber);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of declareWinner method, of class War.
-     */
-    @Test
-    public void testDeclareWinner() {
-        System.out.println("declareWinner");
-        War instance = null;
-        instance.declareWinner();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of resolveTie method, of class War.
-     */
-    @Test
-    public void testResolveTie() {
-        System.out.println("resolveTie");
-        War instance = null;
-        String expResult = "";
-        String result = instance.resolveTie();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of play method, of class War.
-     */
-    @Test
-    public void testPlay() {
-        System.out.println("play");
-        War instance = null;
-        instance.play();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+   public void badTestDeclareWinner(){
+        War instance =new War("War");     
+      assertTrue("The game resulted in a tie!".equals(instance.declareWinner(23, 23)));
+           
+   }
+   
+   @Test
+   public void boundaryTestDeclareWinner(){
+        War instance =new War("War");     
+      assertTrue("Player 1 wins the game!".equals(instance.declareWinner(24, 23)));
+           
+   }
+   
+   /**
+    * Test of resolveTie method, of class War.
+    */
+   @Test
+   public void testResolveTie(){
+           War instance =new War("War"); 
+                WarGamePlayer[] players = new WarGamePlayer[2];
+        players[0] = new WarGamePlayer("p1");    
+        players[1] = new WarGamePlayer("p2");
+        assertTrue("It's a tie!".equals(instance.resolveTie(players)));
+           
+   }
+   
+   
     /**
      * Test of addToPlayer1Pile method, of class War.
      */
     @Test
-    public void testAddToPlayer1Pile() {
+    public void goodTestAddToPlayer1Pile() {
         System.out.println("addToPlayer1Pile");
-        PlayingCards player1card = null;
-        PlayingCards player2card = null;
-        War instance = null;
-        instance.addToPlayer1Pile(player1card, player2card);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        PlayingCards player1card = new PlayingCards(5, Suits.SPADES);
+        PlayingCards player2card = new PlayingCards(3, Suits.HEARTS);
+        
+        War instance = new War("war");
+        WarGamePlayer[] players = new WarGamePlayer[2];
+        
+        players[0] = new WarGamePlayer("p1");    
+        players[1] = new WarGamePlayer("p2");
+        
+        players[0].setPlayerDeck(instance.getDeck().getCardsForPlayer1());
+        players[1].setPlayerDeck(instance.getDeck().getCardsForPlayer2());
+        
+        instance.addToPlayer1Pile(players, player1card, player2card);//checks the method
+        
+        PlayingCards firstCard = players[0].getPlayerDeck().get(players[0].getPlayerDeck().size() - 2);
+        PlayingCards secondCard = players[0].getPlayerDeck().get(players[0].getPlayerDeck().size() - 3);
+        
+        String expected = player1card.getRank() + player1card.getSuit().toString() + "--" + player2card.getRank() + player2card.getSuit().toString();
+        String result = firstCard.getRank() + firstCard.getSuit().toString() + "--" + secondCard.getRank() + secondCard.getSuit().toString();
+        assertTrue(expected.equals(result));
     }
-
     /**
-     * Test of addToPlayer2Pile method, of class War.
+     * 
      */
-    @Test
-    public void testAddToPlayer2Pile() {
-        System.out.println("addToPlayer2Pile");
-        PlayingCards player1card = null;
-        PlayingCards player2card = null;
-        War instance = null;
-        instance.addToPlayer2Pile(player1card, player2card);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+      public void badTestAddToPlayer1Pile() {
+           System.out.println("addToPlayer1Pile");
+        PlayingCards player1card = new PlayingCards(7, Suits.CLUBS);
+        PlayingCards player2card = new PlayingCards(3, Suits.HEARTS);
+        
+        War instance = new War("war");
+        WarGamePlayer[] players = new WarGamePlayer[2];
+        
+        players[0] = new WarGamePlayer("p1");    
+        players[1] = new WarGamePlayer("p2");
+        
+        players[0].setPlayerDeck(instance.getDeck().getCardsForPlayer1());
+        players[1].setPlayerDeck(instance.getDeck().getCardsForPlayer2());
+        
+        instance.addToPlayer1Pile(players, player1card, player2card);//checks the method
+        
+        PlayingCards firstCard = players[0].getPlayerDeck().get(players[0].getPlayerDeck().size() - 2);
+        PlayingCards secondCard = players[0].getPlayerDeck().get(players[0].getPlayerDeck().size() - 3);
+        
+        String expected = player1card.getRank() + player1card.getSuit().toString() + "--" + player2card.getRank() + player2card.getSuit().toString();
+        String result = firstCard.getRank() + firstCard.getSuit().toString() + "--" + secondCard.getRank() + secondCard.getSuit().toString();
+        assertTrue(expected.equals(result));
+      }
     
 }
